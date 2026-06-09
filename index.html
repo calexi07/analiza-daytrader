@@ -3,221 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMC Full Analysis — 08.06.2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>SMC Full Analysis — 09.06.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:    #060a0f;
-  --bg2:   #0d1420;
-  --bg3:   #111c2d;
-  --border:  rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text:       #c8d8e8;
-  --text-dim:   #5a7090;
-  --text-bright:#e8f4ff;
-  --bear:       #ff4455;
-  --bear-dim:   rgba(255,68,85,0.12);
-  --bear-bd:    rgba(255,68,85,0.3);
-  --bull:       #00e676;
-  --bull-dim:   rgba(0,230,118,0.10);
-  --bull-bd:    rgba(0,230,118,0.3);
-  --neutral:    #ffb300;
-  --neut-dim:   rgba(255,179,0,0.10);
-  --fvg:        #7c4dff;
-  --fvg-dim:    rgba(124,77,255,0.12);
-  --ob:         #ff6d00;
-  --ob-dim:     rgba(255,109,0,0.12);
-  --fib:        #aa00ff;
-  --fib-dim:    rgba(170,0,255,0.10);
-  --acc:        #00b4d8;
-  --acc-dim:    rgba(0,180,216,0.10);
-  --gold:       #ffd54f;
+:root{
+  --bg:#060a0f;--bg2:#0d1420;--bg3:#111c2d;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --text:#c8d8e8;--dim:#5a7090;--bright:#e8f4ff;
+  --bear:#ff4455;--bear-d:rgba(255,68,85,.12);--bear-b:rgba(255,68,85,.3);
+  --bull:#00e676;--bull-d:rgba(0,230,118,.10);--bull-b:rgba(0,230,118,.3);
+  --neut:#ffb300;--neut-d:rgba(255,179,0,.10);
+  --fvg:#7c4dff;--fvg-d:rgba(124,77,255,.12);
+  --ob:#ff6d00;--ob-d:rgba(255,109,0,.12);
+  --fib:#aa00ff;--fib-d:rgba(170,0,255,.10);
+  --acc:#00b4d8;--acc-d:rgba(0,180,216,.10);
+  --gold:#ffd54f;--new:#00897b;--new-d:rgba(0,137,123,.12);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;font-size:12px;line-height:1.6;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity:.4}
-
-/* HEADER */
-header{position:sticky;top:0;z-index:100;background:rgba(6,10,15,.95);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border2);padding:14px 24px;
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.h-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;letter-spacing:.04em;
-  color:var(--text-bright);flex:1}
-.h-title span{color:var(--acc)}
-.h-date{font-size:11px;color:var(--text-dim);background:var(--bg3);
-  border:1px solid var(--border);padding:4px 10px;border-radius:4px}
-.htag{font-size:10px;padding:3px 8px;border-radius:3px;font-weight:700;letter-spacing:.08em}
-.htag-bear{background:var(--bear-dim);color:var(--bear);border:1px solid var(--bear-bd)}
-.htag-neu{background:var(--neut-dim);color:var(--neutral);border:1px solid rgba(255,179,0,.3)}
-
-/* NAV */
-.nav{display:flex;gap:2px;padding:0 24px;background:var(--bg2);
-  border-bottom:1px solid var(--border);overflow-x:auto}
-.nb{padding:10px 16px;font-family:'Space Mono',monospace;font-size:11px;background:none;
-  border:none;color:var(--text-dim);cursor:pointer;
-  border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
-.nb:hover{color:var(--text)}
-.nb.active{color:var(--acc);border-bottom-color:var(--acc)}
-
-/* MAIN */
-main{max-width:1400px;margin:0 auto;padding:20px 20px 60px;position:relative;z-index:1}
-.page{display:none}
-.page.active{display:block}
-
-/* INSTRUMENT HEADER */
-.ih{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;
-  padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
-.iname{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;
-  color:var(--text-bright);letter-spacing:-.01em}
-.iprice{font-size:13px;font-weight:700;color:var(--gold);
-  background:rgba(255,213,79,.08);border:1px solid rgba(255,213,79,.2);
-  padding:3px 10px;border-radius:4px}
-.idesc{font-size:11px;color:var(--text-dim);flex:1}
-
-/* PILLS */
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;
-  border-radius:20px;font-size:12px;font-weight:500}
-.pill-bear{background:var(--bear-dim);color:var(--bear);border:1px solid var(--bear-bd)}
-.pill-bull{background:var(--bull-dim);color:var(--bull);border:1px solid var(--bull-bd)}
-.pill-neu{background:var(--neut-dim);color:var(--neutral);border:1px solid rgba(255,179,0,.3)}
-.pill-acc{background:var(--acc-dim);color:var(--acc);border:1px solid rgba(0,180,216,.3)}
-
-/* GRID */
+body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;font-size:12px;line-height:1.6}
+header{position:sticky;top:0;z-index:100;background:rgba(6,10,15,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);padding:12px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.htitle{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--bright);flex:1}
+.htitle span{color:var(--acc)}
+.hdate{font-size:11px;color:var(--dim);background:var(--bg3);border:1px solid var(--border);padding:3px 10px;border-radius:4px}
+.htag{font-size:10px;padding:3px 8px;border-radius:3px;font-weight:700}
+.htag-bear{background:var(--bear-d);color:var(--bear);border:1px solid var(--bear-b)}
+.htag-bull{background:var(--bull-d);color:var(--bull);border:1px solid var(--bull-b)}
+.htag-neu{background:var(--neut-d);color:var(--neut);border:1px solid rgba(255,179,0,.3)}
+.nav{display:flex;gap:2px;padding:0 24px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto}
+.nb{padding:10px 16px;font-family:'Space Mono',monospace;font-size:11px;background:none;border:none;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.nb:hover{color:var(--text)}.nb.active{color:var(--acc);border-bottom-color:var(--acc)}
+main{max-width:1400px;margin:0 auto;padding:20px 20px 60px}
+.page{display:none}.page.active{display:block}
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.ct{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.gf{margin-bottom:12px}
-@media(max-width:1000px){.g3,.g4{grid-template-columns:1fr 1fr}}
-@media(max-width:650px){.g2,.g3,.g4{grid-template-columns:1fr}}
-
-/* CARD */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
-.ct{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);
-  margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-
+@media(max-width:900px){.g2,.g3{grid-template-columns:1fr}}
+/* INST HEADER */
+.ih{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.iname{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--bright)}
+.iprice{font-size:13px;font-weight:700;color:var(--gold);background:rgba(255,213,79,.08);border:1px solid rgba(255,213,79,.2);padding:3px 10px;border-radius:4px}
+.idesc{font-size:11px;color:var(--dim);flex:1}
+.pill{display:inline-flex;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}
+.pill-bear{background:var(--bear-d);color:var(--bear);border:1px solid var(--bear-b)}
+.pill-bull{background:var(--bull-d);color:var(--bull);border:1px solid var(--bull-b)}
+.pill-neu{background:var(--neut-d);color:var(--neut);border:1px solid rgba(255,179,0,.3)}
 /* ZONE ROWS */
-.zr{display:flex;align-items:center;gap:8px;padding:5px 0;
-  border-bottom:1px solid var(--border)}
+.zr{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
 .zr:last-child{border-bottom:none}
-.zl{color:var(--text-dim);min-width:140px;font-size:11px}
-.zp{font-weight:700;color:var(--text-bright);min-width:110px;font-size:12px}
-.zt{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:.05em}
-.zt-bear{background:var(--bear-dim);color:var(--bear)}
-.zt-bull{background:var(--bull-dim);color:var(--bull)}
-.zt-liq{background:var(--acc-dim);color:var(--acc)}
-.zt-ob{background:var(--ob-dim);color:var(--ob)}
-.zt-fvg{background:var(--fvg-dim);color:var(--fvg)}
-.zt-fib{background:var(--fib-dim);color:var(--fib)}
-.zt-warn{background:var(--neut-dim);color:var(--neutral)}
-
-/* SETUP CARD */
-.sc{border:1px solid var(--border);border-radius:8px;padding:14px 16px;
-  margin-bottom:10px;background:var(--bg);position:relative;overflow:hidden}
+.zl{color:var(--dim);min-width:140px;font-size:11px}
+.zp{font-weight:700;color:var(--bright);min-width:110px;font-size:12px}
+.zt{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700}
+.zt-bear{background:var(--bear-d);color:var(--bear)}
+.zt-bull{background:var(--bull-d);color:var(--bull)}
+.zt-fvg{background:var(--fvg-d);color:var(--fvg)}
+.zt-ob{background:var(--ob-d);color:var(--ob)}
+.zt-fib{background:var(--fib-d);color:var(--fib)}
+.zt-new{background:var(--new-d);color:var(--new)}
+.zt-warn{background:var(--neut-d);color:var(--neut)}
+.zt-liq{background:var(--acc-d);color:var(--acc)}
+.zt-mit{background:#2a0a0f;color:#ff6b6b;text-decoration:line-through}
+/* SETUP CARDS */
+.sc{border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--bg);position:relative;overflow:hidden}
 .sc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
 .sc-short::before{background:var(--bear)}
 .sc-long::before{background:var(--bull)}
 .sc-swing-s::before{background:var(--fib)}
 .sc-swing-l::before{background:var(--acc)}
-.sc-b::before{background:var(--neutral)}
+.sc-b::before{background:var(--neut)}
+.sc-new::before{background:var(--new)}
+.sc-mit{opacity:.4;pointer-events:none}
 .sh{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.dt{font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
-.dt-short{background:var(--bear-dim);color:var(--bear);border:1px solid var(--bear-bd)}
-.dt-long{background:var(--bull-dim);color:var(--bull);border:1px solid var(--bull-bd)}
-.dt-swing-s{background:var(--fib-dim);color:var(--fib);border:1px solid rgba(170,0,255,.3)}
-.dt-swing-l{background:var(--acc-dim);color:var(--acc);border:1px solid rgba(0,180,216,.3)}
-.dt-b{background:var(--neut-dim);color:var(--neutral);border:1px solid rgba(255,179,0,.3)}
-.gb{font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid var(--border2);
-  color:var(--text-dim)}
-.ph{background:var(--bull-dim);color:var(--bull);font-size:10px;padding:2px 7px;border-radius:3px}
-.pm{background:var(--neut-dim);color:var(--neutral);font-size:10px;padding:2px 7px;border-radius:3px}
-.pl{background:var(--bear-dim);color:var(--bear);font-size:10px;padding:2px 7px;border-radius:3px}
-
-/* R:R GRID */
+.dt-short{background:var(--bear-d);color:var(--bear);border:1px solid var(--bear-b);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
+.dt-long{background:var(--bull-d);color:var(--bull);border:1px solid var(--bull-b);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
+.dt-swing-s{background:var(--fib-d);color:var(--fib);border:1px solid rgba(170,0,255,.3);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
+.dt-swing-l{background:var(--acc-d);color:var(--acc);border:1px solid rgba(0,180,216,.3);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
+.dt-neu{background:var(--neut-d);color:var(--neut);border:1px solid rgba(255,179,0,.3);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px}
+.gb{font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid var(--border2);color:var(--dim)}
+.ph{background:var(--bull-d);color:var(--bull);font-size:10px;padding:2px 7px;border-radius:3px}
+.pm{background:var(--neut-d);color:var(--neut);font-size:10px;padding:2px 7px;border-radius:3px}
+.badge-new{background:var(--new-d);color:var(--new);border:1px solid rgba(0,137,123,.3);font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700}
+.badge-mit{background:#2a0a0f;color:#ff6b6b;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700}
+.badge-part{background:#1a1200;color:var(--neut);border:1px solid rgba(255,179,0,.3);font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700}
+/* RR */
 .rg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
 .rb{background:var(--bg2);border-radius:4px;padding:7px 8px}
-.rl{font-size:9px;color:var(--text-dim);margin-bottom:2px}
-.rv{font-size:12px;font-weight:700;color:var(--text-bright)}
-
-/* NARRATIVE */
-.narr{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;
-  padding:10px 12px;margin-top:8px;font-size:11px;color:var(--text);line-height:1.7}
+.rl{font-size:9px;color:var(--dim);margin-bottom:2px}
+.rv{font-size:12px;font-weight:700;color:var(--bright)}
+/* NARR */
+.narr{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;margin-top:8px;font-size:11px;line-height:1.7}
 .narr-bear{border-left:3px solid var(--bear)}
 .narr-bull{border-left:3px solid var(--bull)}
-.narr-warn{border-left:3px solid var(--neutral);background:rgba(255,179,0,.05)}
+.narr-warn{border-left:3px solid var(--neut);background:rgba(255,179,0,.05)}
 .narr-info{border-left:3px solid var(--acc);background:rgba(0,180,216,.05)}
-
-/* LIQUIDITY */
-.lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.lct{font-size:11px;font-weight:700;margin-bottom:8px}
-.li{display:flex;align-items:flex-start;gap:8px;padding:5px 0;
-  border-bottom:1px solid var(--border)}
-.li:last-child{border-bottom:none}
-.ld{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0}
-.ld-b{background:var(--bull)}
-.ld-s{background:var(--bear)}
-.lt{font-size:11px;color:var(--text);line-height:1.5}
-.lt b{color:var(--text-bright)}
-
-/* FIBONACCI */
-.fr{display:flex;align-items:center;gap:8px;padding:4px 0;
-  border-bottom:1px solid var(--border);font-size:11px}
-.fr:last-child{border-bottom:none}
-.fp{min-width:70px;color:var(--fib);font-weight:700}
-.fpr{min-width:95px;font-weight:700;color:var(--text-bright)}
-.fn{color:var(--text-dim)}
-.fc{background:rgba(255,213,79,.08);border-radius:3px;padding:0 4px}
-
-/* SCORE */
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sb{background:var(--bg3);border-radius:6px;padding:10px 12px}
-.sl{font-size:10px;color:var(--text-dim);margin-bottom:4px}
-.sv{font-size:22px;font-weight:700}
-.ss{font-size:10px;color:var(--text-dim);margin-top:2px}
-.sbar{background:var(--border);border-radius:3px;height:4px;margin-top:5px;overflow:hidden}
-.sf{height:100%;border-radius:3px}
-
+.narr-new{border-left:3px solid var(--new);background:var(--new-d)}
 /* OVERVIEW TABLE */
 .ot{width:100%;border-collapse:collapse}
-.ot th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);
-  border-bottom:1px solid var(--border2);white-space:nowrap}
-.ot td{padding:7px 10px;font-size:11px;border-bottom:1px solid var(--border);
-  vertical-align:middle}
+.ot th{padding:7px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);border-bottom:1px solid var(--border2)}
+.ot td{padding:6px 10px;font-size:11px;border-bottom:1px solid var(--border);vertical-align:middle}
 .ot tr:last-child td{border-bottom:none}
 .ot tr:hover td{background:rgba(255,255,255,.02)}
-.ic{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text-bright)}
-
-/* CONF MATRIX */
-.cm{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.ci{background:var(--bg3);border-radius:6px;padding:10px 8px;text-align:center}
-.cn{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;
-  color:var(--text-bright);margin-bottom:6px}
-@media(max-width:700px){.cm{grid-template-columns:repeat(3,1fr)}}
-
+.ic{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--bright)}
+/* STATUS */
+.st-mit{color:#ff6b6b;text-decoration:line-through;font-size:10px}
+.st-act{color:var(--bull);font-size:10px;font-weight:700}
+.st-new{color:var(--new);font-size:10px;font-weight:700}
+.st-part{color:var(--neut);font-size:10px;font-weight:700}
+/* LIQ */
+.lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lct{font-size:11px;font-weight:700;margin-bottom:8px}
+.li{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
+.li:last-child{border-bottom:none}
+.ld{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.ld-b{background:var(--bull)}.ld-s{background:var(--bear)}
+.lt{font-size:11px;line-height:1.5}.lt b{color:var(--bright)}
 /* MISC */
 hr.sep{border:none;border-top:1px solid var(--border);margin:12px 0}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
 ::-webkit-scrollbar-thumb{background:#1e3050;border-radius:3px}
-@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.page.active>*{animation:fi .25s ease both}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page.active>*{animation:fi .2s ease both}
 .page.active>*:nth-child(2){animation-delay:.04s}
 .page.active>*:nth-child(3){animation-delay:.08s}
 .page.active>*:nth-child(4){animation-delay:.12s}
 .page.active>*:nth-child(5){animation-delay:.16s}
-.page.active>*:nth-child(6){animation-delay:.20s}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="h-title">SMC <span>FULL ANALYSIS</span></div>
-  <div class="h-date">08.06.2026 · Updated at session close</div>
-  <span class="htag htag-bear">USD BULLISH MACRO</span>
-  <span class="htag htag-neu">6 INSTRUMENTS · 25 SETUPS</span>
+  <div class="htitle">SMC <span>FULL ANALYSIS</span></div>
+  <div class="hdate">09.06.2026 · Setups verified vs CSV data</div>
+  <span class="htag htag-bear">USD BULLISH</span>
+  <span class="htag htag-neu">6 INSTRUMENTS</span>
+  <span class="htag" style="background:var(--new-d);color:var(--new);border:1px solid rgba(0,137,123,.3)">SETUPS VERIFIED ✓</span>
 </header>
 
 <nav class="nav">
@@ -231,735 +152,412 @@ hr.sep{border:none;border-top:1px solid var(--border);margin:12px 0}
 </nav>
 
 <main>
-
-<!-- ══════════════════════ OVERVIEW ══════════════════════ -->
+<!-- ══════ OVERVIEW ══════ -->
 <div class="page active" id="page-ov">
-
   <div class="ih">
-    <div>
-      <div class="iname">General Overview</div>
-      <div class="idesc" style="margin-top:4px">Macro sentiment · 08.06.2026 · All instruments</div>
-    </div>
-    <span class="pill pill-bear">USD BULLISH</span>
-    <span class="pill pill-bear">RISK-OFF</span>
+    <div><div class="iname">Overview</div><div class="idesc" style="margin-top:4px">09.06.2026 · All setups verified against Mon 08.06 CSV data</div></div>
+    <span class="pill pill-bear">USD BULLISH MACRO</span>
   </div>
 
-  <div class="card gf">
-    <div class="ct">Institutional Correlation Matrix</div>
-    <div class="cm">
-      <div class="ci"><div class="cn">EURUSD</div>
-        <span class="zt zt-bear" style="display:inline-block;margin-bottom:4px">BEARISH</span>
-        <div style="font-size:10px;color:var(--text-dim)">Mark Down · 82%</div></div>
-      <div class="ci"><div class="cn">GBPUSD</div>
-        <span class="zt zt-bear" style="display:inline-block;margin-bottom:4px">BEARISH</span>
-        <div style="font-size:10px;color:var(--text-dim)">Mark Down · 80%</div></div>
-      <div class="ci"><div class="cn">USDJPY</div>
-        <span class="zt zt-bull" style="display:inline-block;margin-bottom:4px">BULLISH</span>
-        <div style="font-size:10px;color:var(--text-dim)">Mark Up · 82%</div></div>
-      <div class="ci"><div class="cn">XAUUSD</div>
-        <span class="zt zt-bear" style="display:inline-block;margin-bottom:4px">BEARISH</span>
-        <div style="font-size:10px;color:var(--text-dim)">Mark Down · 77%</div></div>
-      <div class="ci"><div class="cn">GER40</div>
-        <span class="zt zt-warn" style="display:inline-block;margin-bottom:4px">DUAL</span>
-        <div style="font-size:10px;color:var(--text-dim)">Bullish corr. · 75%</div></div>
-      <div class="ci"><div class="cn">NAS100</div>
-        <span class="zt zt-warn" style="display:inline-block;margin-bottom:4px">DUAL</span>
-        <div style="font-size:10px;color:var(--text-dim)">Bullish corr. · 73%</div></div>
-    </div>
-    <div class="narr narr-info" style="margin-top:12px">
-      <b>Coordinated macro sentiment:</b> All 6 instruments confirm the same institutional hand on Jun 5 — coordinated sell-off on EUR, GBP, XAU, GER40, NAS100 and rally on USDJPY. USD bullish. Cleanest setups: <b>SHORT EUR/GBP/XAU on FVG retrace</b> and <b>LONG USDJPY on OB retrace</b>. GER40 and NAS100 are LONG on swing after correction — not short.
+  <div class="card" style="margin-bottom:12px">
+    <div class="ct">Setup Verification Legend</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:11px">
+      <span><span class="badge-mit">MITIGATED</span> — zone traversed, setup eliminated</span>
+      <span><span class="badge-part">PARTIAL</span> — zone touched partially, still valid supply/demand</span>
+      <span><span class="badge-new">NEW</span> — rebuilt setup on new structure from Mon data</span>
+      <span><span class="st-act">ACTIVE</span> — not touched, fully valid</span>
     </div>
   </div>
 
-  <div class="card gf">
-    <div class="ct">Setup Summary — All Instruments (25 total)</div>
+  <div class="card">
+    <div class="ct">All Active Setups — 09.06.2026</div>
     <div style="overflow-x:auto">
     <table class="ot">
-      <thead><tr>
-        <th>Instrument</th><th>Swing Bias</th><th>DT Bias</th>
-        <th>Setup</th><th>Grade</th><th>Entry</th><th>SL</th>
-        <th>T1</th><th>T2</th><th>T3</th><th>R:R</th>
-      </tr></thead>
+      <thead><tr><th>Instrument</th><th>Direction</th><th>Setup</th><th>Status</th><th>Entry</th><th>SL</th><th>T1</th><th>T2</th><th>T3</th><th>R:R</th></tr></thead>
       <tbody>
-        <tr><td rowspan="5" class="ic" style="vertical-align:top;padding-top:10px">EURUSD</td>
-          <td rowspan="5"><span class="zt zt-bear">BEARISH</span></td>
-          <td rowspan="5"><span class="zt zt-bear">BEARISH</span></td>
-          <td>SHORT A+ DT</td><td><span class="zt zt-bull">A+</span></td>
-          <td>1.15332–1.15495</td><td>1.15600</td><td>1.15180</td><td>1.14950</td><td>1.14109</td><td style="color:var(--bull)">2.0:1</td></tr>
-        <tr><td>SHORT B DT</td><td><span class="zt zt-liq">B</span></td>
-          <td>1.15600–1.15718</td><td>1.15810</td><td>1.15180</td><td>1.14950</td><td>—</td><td style="color:var(--bull)">2.5:1</td></tr>
-        <tr><td>SHORT A+ Swing</td><td><span class="zt zt-bull">A+</span></td>
-          <td>1.16478–1.16858</td><td>1.17050</td><td>1.15180</td><td>1.14431</td><td>1.14109</td><td style="color:var(--bull)">2.5–5.5:1</td></tr>
-        <tr><td>SHORT A Swing OTE</td><td><span class="zt zt-bull">A</span></td>
-          <td>1.15784–1.16085</td><td>1.16300</td><td>1.15180</td><td>1.14431</td><td>1.14109</td><td style="color:var(--bull)">1.2–4.2:1</td></tr>
-        <tr><td>LONG B Counter</td><td><span class="zt zt-warn">B</span></td>
-          <td>1.13800–1.14200</td><td>1.13500</td><td>1.15300</td><td>1.16085</td><td>—</td><td style="color:var(--bull)">Counter</td></tr>
-
-        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">GBPUSD</td>
-          <td rowspan="4"><span class="zt zt-bear">BEARISH</span></td>
-          <td rowspan="4"><span class="zt zt-bear">BEARISH</span></td>
-          <td>SHORT A+ DT</td><td><span class="zt zt-bull">A+</span></td>
-          <td>1.33594–1.33880</td><td>1.33950</td><td>1.33242</td><td>1.33026</td><td>1.31596</td><td style="color:var(--bull)">2.0–6.0:1</td></tr>
-        <tr><td>SHORT A Swing OTE</td><td><span class="zt zt-bull">A</span></td>
-          <td>1.33499–1.33880</td><td>1.34120</td><td>1.33026</td><td>1.32662</td><td>1.31596</td><td style="color:var(--bull)">1.5–6.0:1</td></tr>
-        <tr><td>SHORT A+ Swing Deep</td><td><span class="zt zt-bull">A+</span></td>
-          <td>1.34042–1.34675</td><td>1.34850</td><td>1.33242</td><td>1.32662</td><td>1.31596</td><td style="color:var(--bull)">5.4–12.9:1</td></tr>
-        <tr><td>LONG B Counter</td><td><span class="zt zt-warn">B</span></td>
-          <td>1.31400–1.31700</td><td>1.31050</td><td>1.33242</td><td>1.34042</td><td>—</td><td style="color:var(--bull)">Counter</td></tr>
-
-        <tr><td rowspan="3" class="ic" style="vertical-align:top;padding-top:10px">USDJPY</td>
-          <td rowspan="3"><span class="zt zt-bull">BULLISH</span></td>
-          <td rowspan="3"><span class="zt zt-bull">BULLISH</span></td>
-          <td>LONG A DT</td><td><span class="zt zt-bull">A</span></td>
-          <td>159.590–159.909</td><td>159.360</td><td>160.342</td><td>160.464</td><td>160.726</td><td style="color:var(--bull)">2.7–4.4:1</td></tr>
-        <tr><td>LONG A+ Swing</td><td><span class="zt zt-bull">A+</span></td>
-          <td>159.000–159.500</td><td>158.500</td><td>160.342</td><td>160.726</td><td>161.500</td><td style="color:var(--bull)">2.7–9.3:1</td></tr>
-        <tr><td>LONG B Break+Retest</td><td><span class="zt zt-warn">B</span></td>
-          <td>160.200–160.342</td><td>160.050</td><td>160.464</td><td>160.726</td><td>—</td><td style="color:var(--bull)">1.4–4.2:1</td></tr>
-
-        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">XAUUSD</td>
-          <td rowspan="4"><span class="zt zt-bear">BEARISH</span></td>
-          <td rowspan="4"><span class="zt zt-bear">BEARISH</span></td>
-          <td>SHORT A+ DT #1</td><td><span class="zt zt-bull">A+</span></td>
-          <td>4379–4404</td><td>4475</td><td>4311</td><td>4250</td><td>4200</td><td style="color:var(--bull)">3.2–4.8:1</td></tr>
-        <tr><td>SHORT A DT #2</td><td><span class="zt zt-bull">A</span></td>
-          <td>4421–4458</td><td>4475</td><td>4311</td><td>4250</td><td>4200</td><td style="color:var(--bull)">~3.0:1</td></tr>
-        <tr><td>SHORT A Swing OTE</td><td><span class="zt zt-bull">A</span></td>
-          <td>4482–4533</td><td>4580</td><td>4311</td><td>4200</td><td>4100</td><td style="color:var(--bull)">4.2–7.8:1</td></tr>
-        <tr><td>LONG B Counter</td><td><span class="zt zt-warn">B</span></td>
-          <td>4280–4311</td><td>4250</td><td>4379</td><td>4435</td><td>—</td><td style="color:var(--bull)">Counter</td></tr>
-
-        <tr><td rowspan="5" class="ic" style="vertical-align:top;padding-top:10px">GER40</td>
-          <td rowspan="5"><span class="zt zt-bull">BULL sw.</span></td>
-          <td rowspan="5"><span class="zt zt-bear">BEAR DT</span></td>
-          <td>SHORT A DT (prox.)</td><td><span class="zt zt-bull">A</span></td>
-          <td>24607–24668</td><td>25010</td><td>24504</td><td>24105</td><td>23690</td><td style="color:var(--bull)">2.0–4.7:1</td></tr>
-        <tr><td>SHORT A DT (optim.)</td><td><span class="zt zt-bull">A</span></td>
-          <td>24722–24895</td><td>25010</td><td>24504</td><td>24105</td><td>23690</td><td style="color:var(--bull)">2.0–4.7:1</td></tr>
-        <tr><td>LONG A+ Swing</td><td><span class="zt zt-bull">A+</span></td>
-          <td>23950–24200</td><td>23600</td><td>24798</td><td>25158</td><td>25446</td><td style="color:var(--bull)">2.8–6.3:1</td></tr>
-        <tr><td>LONG A Swing EQ</td><td><span class="zt zt-bull">A</span></td>
+        <!-- EURUSD -->
+        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">EURUSD<br><span style="font-size:10px;color:var(--dim);font-weight:400">1.15354</span></td>
+          <td><span class="zt zt-bear">SHORT</span></td><td>A OTE Swing partial</td><td><span class="badge-part">PARTIAL</span></td>
+          <td style="font-family:var(--font-mono)">1.15784–1.16085</td><td>1.16300</td><td>1.14998</td><td>1.14431</td><td>1.14109</td><td style="color:var(--bull)">~2.5:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>A+ Swing</td><td><span class="st-act">ACTIVE</span></td>
+          <td>1.16478–1.16858</td><td>1.17050</td><td>1.14998</td><td>1.14431</td><td>1.14109</td><td style="color:var(--bull)">2.5:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>DT rebuilt</td><td><span class="badge-new">NEW</span></td>
+          <td>1.15332–1.15495</td><td>1.15600</td><td>1.14998</td><td>1.14800</td><td>—</td><td style="color:var(--bull)">2.3:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>B Counter</td><td><span class="st-act">ACTIVE</span></td>
+          <td>1.13800–1.14200</td><td>1.13500</td><td>1.15300</td><td>1.16085</td><td>—</td><td style="color:var(--bull)">~3.5:1</td></tr>
+        <!-- GBPUSD -->
+        <tr><td rowspan="3" class="ic" style="vertical-align:top;padding-top:10px">GBPUSD<br><span style="font-size:10px;color:var(--dim);font-weight:400">1.33390</span></td>
+          <td><span class="zt zt-bear">SHORT</span></td><td>A OTE</td><td><span class="badge-part">PARTIAL</span></td>
+          <td>1.33499–1.33880</td><td>1.34120</td><td>1.33060</td><td>1.33026</td><td>1.32662</td><td style="color:var(--bull)">3.0:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>A DT FVG #3</td><td><span class="badge-new">NEW</span></td>
+          <td>1.33594–1.33880</td><td>1.33950</td><td>1.33060</td><td>1.33026</td><td>—</td><td style="color:var(--bull)">3.7:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>B Counter</td><td><span class="badge-part">PARTIAL</span></td>
+          <td>1.32900–1.33060</td><td>1.32750</td><td>1.33390</td><td>1.33698</td><td>—</td><td style="color:var(--bull)">2.2:1</td></tr>
+        <!-- USDJPY -->
+        <tr><td rowspan="2" class="ic" style="vertical-align:top;padding-top:10px">USDJPY<br><span style="font-size:10px;color:var(--dim);font-weight:400">160.160</span></td>
+          <td><span class="zt zt-bull">LONG</span></td><td>A DT demand</td><td><span class="badge-new">NEW</span></td>
+          <td>159.840–160.028</td><td>159.720</td><td>160.342</td><td>160.394</td><td>160.464</td><td style="color:var(--bull)">2.0:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>A+ Swing</td><td><span class="st-act">ACTIVE</span></td>
+          <td>159.000–159.500</td><td>158.500</td><td>160.342</td><td>160.726</td><td>—</td><td style="color:var(--bull)">~4.5:1</td></tr>
+        <!-- XAUUSD -->
+        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">XAUUSD<br><span style="font-size:10px;color:var(--dim);font-weight:400">4330.26$</span></td>
+          <td><span class="zt zt-bear">SHORT</span></td><td>DT FVG #2</td><td><span class="badge-new">NEW</span></td>
+          <td>4379–4404</td><td>4475</td><td>4268.91</td><td>4200</td><td>—</td><td style="color:var(--bull)">3.5:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>DT FVG Major</td><td><span class="badge-new">NEW</span></td>
+          <td>4421–4458</td><td>4475</td><td>4268.91</td><td>4200</td><td>—</td><td style="color:var(--bull)">~3.0:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>Swing OTE</td><td><span class="badge-part">PARTIAL 27%</span></td>
+          <td>4452–4506</td><td>4580</td><td>4268.91</td><td>4200</td><td>4100</td><td style="color:var(--bull)">4.2:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>B Counter</td><td><span class="st-act">ACTIVE</span></td>
+          <td>4220–4268</td><td>4180</td><td>4340</td><td>4400</td><td>—</td><td style="color:var(--bull)">~2.5:1</td></tr>
+        <!-- GER40 -->
+        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">GER40<br><span style="font-size:10px;color:var(--dim);font-weight:400">24574.2</span></td>
+          <td><span class="zt zt-bear">SHORT</span></td><td>A FVG Major</td><td><span class="badge-part">PARTIAL 72%</span></td>
+          <td>24722–24895</td><td>25010</td><td>24331.9</td><td>24105</td><td>23690</td><td style="color:var(--bull)">3.2:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>B DT sweep</td><td><span class="badge-part">PARTIAL</span></td>
+          <td>24200–24331</td><td>24100</td><td>24574</td><td>24895</td><td>—</td><td style="color:var(--bull)">3.2:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>A+ Swing Fib38</td><td><span class="st-act">ACTIVE</span></td>
+          <td>23950–24200</td><td>23600</td><td>24798</td><td>25158</td><td>25446</td><td style="color:var(--bull)">2.8:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>A Swing EQ</td><td><span class="st-act">ACTIVE</span></td>
           <td>23500–23690</td><td>23300</td><td>24798</td><td>25446</td><td>—</td><td style="color:var(--bull)">~4.0:1</td></tr>
-        <tr><td>LONG B DT (sweep rev.)</td><td><span class="zt zt-warn">B</span></td>
-          <td>24400–24504</td><td>24300</td><td>24720</td><td>24895</td><td>—</td><td style="color:var(--bull)">3.0–5.0:1</td></tr>
-
-        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">NAS100</td>
-          <td rowspan="4"><span class="zt zt-bull">BULL sw.</span></td>
-          <td rowspan="4"><span class="zt zt-bear">BEAR DT</span></td>
-          <td>SHORT A DT (prox.)</td><td><span class="zt zt-bull">A</span></td>
-          <td>28994–29163</td><td>30100</td><td>28734</td><td>28570</td><td>27710</td><td style="color:var(--bull)">3.0–3.7:1</td></tr>
-        <tr><td>SHORT A DT (optim.)</td><td><span class="zt zt-bull">A</span></td>
-          <td>29455–29988</td><td>30100</td><td>28734</td><td>28570</td><td>27710</td><td style="color:var(--bull)">4.4:1</td></tr>
-        <tr><td>LONG A+ Swing</td><td><span class="zt zt-bull">A+</span></td>
-          <td>27500–27850</td><td>27200</td><td>29287</td><td>29675</td><td>30756</td><td style="color:var(--bull)">3.0–10.5:1</td></tr>
-        <tr><td>LONG B DT (Weekly HL)</td><td><span class="zt zt-warn">B</span></td>
-          <td>28570–28734</td><td>28350</td><td>29163</td><td>29455</td><td>—</td><td style="color:var(--bull)">3.4–5.5:1</td></tr>
+        <!-- NAS100 -->
+        <tr><td rowspan="4" class="ic" style="vertical-align:top;padding-top:10px">NAS100<br><span style="font-size:10px;color:var(--dim);font-weight:400">29390.1</span></td>
+          <td><span class="zt zt-bear">SHORT</span></td><td>FVG Jun8 + Mon high</td><td><span class="badge-new">NEW</span></td>
+          <td>29424–29697</td><td>30100</td><td>28927.4</td><td>28570</td><td>—</td><td style="color:var(--bull)">3.0:1</td></tr>
+        <tr><td><span class="zt zt-bear">SHORT</span></td><td>FVG 533pts optim</td><td><span class="badge-part">PARTIAL</span></td>
+          <td>29455–29988</td><td>30100</td><td>28927</td><td>27710</td><td>—</td><td style="color:var(--bull)">4.0:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>B DT demand</td><td><span class="badge-new">NEW</span></td>
+          <td>28927–29100</td><td>28750</td><td>29390</td><td>29697</td><td>—</td><td style="color:var(--bull)">2.5:1</td></tr>
+        <tr><td><span class="zt zt-bull">LONG</span></td><td>A+ Swing Fib38</td><td><span class="st-act">ACTIVE</span></td>
+          <td>27500–27850</td><td>27200</td><td>29287</td><td>30756</td><td>—</td><td style="color:var(--bull)">~3.5:1</td></tr>
       </tbody>
     </table>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ EURUSD ══════════════════════ -->
+<!-- ══════ EURUSD ══════ -->
 <div class="page" id="page-eu">
   <div class="ih">
-    <div class="iname">EURUSD</div>
-    <div class="iprice">1.15218</div>
-    <div class="idesc">Forex · 4H/1H/5M · Mar–Jun 2026</div>
-    <span class="pill pill-bear">BEARISH SWING</span>
-    <span class="pill pill-bear">BEARISH DT</span>
+    <div class="iname">EURUSD</div><div class="iprice">1.15354</div>
+    <div class="idesc">Forex · Mon 08.06 data · BOS below 1.15863</div>
+    <span class="pill pill-bear">BEARISH SWING</span><span class="pill pill-bear">BEARISH DT</span>
   </div>
-
+  <div class="narr narr-info" style="margin-bottom:12px"><b>Setup verification:</b> SHORT A+ DT (1.15332–1.15495) and SHORT B DT (1.15600–1.15718) both <b>MITIGATED Jun5</b> — fully traversed on sell-off. SHORT A OTE (1.15784–1.16085) entered but not closed above — still valid supply. SHORT A+ Swing (1.16478–1.16858) ACTIVE — never touched. T1 1.14998 reached Jun8.</div>
   <div class="g2">
     <div class="card">
-      <div class="ct">4H / Weekly — Structure & Key Levels</div>
-      <div class="zr"><span class="zl">Weekly ATH / BSL</span><span class="zp">1.18493</span><span class="zt zt-liq">Apr17 — max BSL</span></div>
-      <div class="zr"><span class="zl">BSL LH #1</span><span class="zp">1.17967</span><span class="zt zt-liq">May6</span></div>
-      <div class="zr"><span class="zl">BSL LH #2</span><span class="zp">1.16858</span><span class="zt zt-liq">May29</span></div>
-      <div class="zr"><span class="zl">Sweep High Jun5</span><span class="zp">1.16445</span><span class="zt zt-liq">BSL swept</span></div>
-      <div class="zr"><span class="zl">4H BOS Bearish</span><span class="zp">Sub 1.15863</span><span class="zt zt-bear">Confirmed</span></div>
-      <div class="zr"><span class="zl">4H Bear FVG #1</span><span class="zp">1.15998–1.16129</span><span class="zt zt-fvg">Unmitigated</span></div>
-      <div class="zr"><span class="zl">4H Bear FVG #2</span><span class="zp">1.15330–1.15863</span><span class="zt zt-fvg">Active — price inside</span></div>
-      <div class="zr"><span class="zl">4H Bear OB</span><span class="zp">1.16224–1.16370</span><span class="zt zt-ob">Jun4 supply</span></div>
-      <div class="zr"><span class="zl">4H EQ Range</span><span class="zp">1.16019</span><span class="zt zt-warn">Below EQ — discount</span></div>
-      <div class="zr"><span class="zl">Immediate SSL</span><span class="zp">1.15180</span><span class="zt zt-bear">T1</span></div>
-      <div class="narr narr-bear" style="margin-top:10px">BSL sweep 1.16445 → brutal sell-off → bearish BOS below 1.15863. Multiple unmitigated bearish FVGs overhead. Draw on liquidity = SSL 1.15180 → 1.14109.</div>
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">4H Bear FVG #2</span><span class="zp">1.15330–1.15863</span><span class="zt zt-fvg">Large — price inside</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG Major</span><span class="zp">1.15998–1.16344</span><span class="zt zt-fvg">Unmitigated</span></div>
+      <div class="zr"><span class="zl">1H Bull FVG Jun8</span><span class="zp">1.15146–1.15234</span><span class="zt zt-new">New demand</span></div>
+      <div class="zr"><span class="zl">SSL — T1</span><span class="zp">1.14998</span><span class="zt zt-bear">Jun8 new low ✓ reached</span></div>
+      <div class="zr"><span class="zl">T2 / T3</span><span class="zp">1.14800 / 1.14109</span><span class="zt zt-bear">Not reached</span></div>
     </div>
     <div class="card">
-      <div class="ct">Weekly Swing — Fibonacci (1.14109–1.18493)</div>
-      <div class="fr"><span class="fp">0%</span><span class="fpr">1.18493</span><span class="fn">Weekly ATH — max BSL</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">1.16818</span><span class="fn">OB + LH — A+ swing setup</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">1.16301</span><span class="fn">Weekly Equilibrium</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">1.15784</span><span class="fn">Short swing OTE zone</span></div>
-      <div class="fr"><span class="fp">70.5%</span><span class="fpr">1.15402</span><span class="fn">Deep OTE</span></div>
-      <div class="fr fc"><span class="fp">~75%</span><span class="fpr">1.15218 ←</span><span class="fn" style="color:var(--gold)">Price NOW</span></div>
-      <div class="fr"><span class="fp">100%</span><span class="fpr">1.14109</span><span class="fn" style="color:var(--bear)">Absolute SSL — final target</span></div>
-    </div>
-  </div>
-
-  <!-- All 5 setups -->
-  <div class="g2">
-    <div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A+</span><span class="gb">Day Trade</span><span class="ph">High</span><span style="font-size:10px;color:var(--text-dim);margin-left:auto">FVG #4 Retrace</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.15332–1.15495</span><span class="zt zt-fvg">1H Bear FVG #4</span></div>
-        <div class="zr"><span class="zl">Stop Loss</span><span class="zp">1.15600</span><span class="zt zt-warn">Above FVG top</span></div>
-        <div class="zr"><span class="zl">T1 / T2 / T3</span><span class="zp">1.15180 / 1.14950 / 1.14109</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.2:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">1.15600</div></div>
-        </div>
-        <div class="narr narr-bear">Wait for retrace into 1.15332–1.15495 → 5M bearish CHoCH or OB rejection → SHORT. Do not short from current low.</div>
-      </div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT B</span><span class="gb">Day Trade</span><span class="pm">Medium</span><span style="font-size:10px;color:var(--text-dim);margin-left:auto">FVG #3 Deeper</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.15600–1.15718</span><span class="zt zt-fvg">1H Bear FVG #3</span></div>
-        <div class="zr"><span class="zl">Stop Loss</span><span class="zp">1.15810</span><span class="zt zt-warn">Above FVG top</span></div>
-        <div class="zr"><span class="zl">T1 / T2</span><span class="zp">1.15180 / 1.14950</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.5:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.4:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">1.15810</div></div>
-        </div>
-        <div class="narr narr-bear">Deeper retrace = better R:R but lower probability. Requires 5M confirmation before entry.</div>
-      </div>
-      <div class="sc sc-b">
-        <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Swing Counter</span><span class="pl">Low</span><span style="font-size:10px;color:var(--text-dim);margin-left:auto">After SSL 1.14109 swept</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 1.14109</span><span class="zt zt-warn">Not triggered yet</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.13800–1.14200</span><span class="zt zt-bull">Post-sweep demand</span></div>
-        <div class="zr"><span class="zl">Stop Loss</span><span class="zp">1.13500</span></div>
-        <div class="zr"><span class="zl">T1 / T2</span><span class="zp">1.15300 / 1.16085</span></div>
-        <div class="narr narr-warn">Counter-trend only. Requires confirmed sweep of 1.14109 + 5M bullish CHoCH. Reduced size, tight management.</div>
-      </div>
-    </div>
-    <div>
-      <div class="sc sc-swing-s">
-        <div class="sh"><span class="dt dt-swing-s">SHORT A+</span><span class="gb">Swing</span><span class="ph">High</span><span style="font-size:10px;color:var(--text-dim);margin-left:auto">Daily OB + Fib 38.2%</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.16478–1.16858</span><span class="zt zt-ob">Daily OB + Fib 38.2%</span></div>
-        <div class="zr"><span class="zl">Stop Loss</span><span class="zp">1.17050</span><span class="zt zt-warn">Above Weekly OB</span></div>
-        <div class="zr"><span class="zl">T1 / T2 / T3</span><span class="zp">1.15180 / 1.14431 / 1.14109</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.5:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">5.5:1</div></div>
-        </div>
-        <div class="narr narr-bear">Confluence: Daily OB + Fib 38.2% + Weekly LH. Estimated hold: 1–3 weeks.</div>
-      </div>
-      <div class="sc sc-swing-s">
-        <div class="sh"><span class="dt dt-swing-s">SHORT A</span><span class="gb">Swing OTE</span><span class="ph">High</span><span style="font-size:10px;color:var(--text-dim);margin-left:auto">Fib 61.8% OTE</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.15784–1.16085</span><span class="zt zt-fib">Fib 61.8% OTE</span></div>
-        <div class="zr"><span class="zl">Stop Loss</span><span class="zp">1.16300</span><span class="zt zt-warn">Above Weekly EQ</span></div>
-        <div class="zr"><span class="zl">T1 / T2 / T3</span><span class="zp">1.15180 / 1.14431 / 1.14109</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">1.2:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">4.2:1</div></div>
-        </div>
-        <div class="narr narr-bear">Smaller retrace = higher probability of rejection. Confluent with 4H BOS level 1.16051–1.16085.</div>
-      </div>
-      <div class="card">
-        <div class="ct">Liquidity Map</div>
-        <div class="lg">
-          <div><div class="lct" style="color:var(--bull)">BSL — Buy Side</div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>1.18493</b> — Weekly ATH max</div></div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>1.17967</b> — LH May6</div></div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>1.16858</b> — LH May29</div></div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>1.16445</b> — Sweep Jun5 (swept)</div></div></div>
-          <div><div class="lct" style="color:var(--bear)">SSL — Sell Side</div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>1.15180</b> — Equal lows T1</div></div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>1.14950</b> — Round number</div></div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>1.14431</b> — SSL Mar30</div></div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>1.14109</b> — ABSOLUTE SSL</div></div></div>
-        </div>
-        <div class="narr narr-warn" style="margin-top:10px"><b>Direction confidence: 82%</b> | Smart money distributing after BSL sweep. Final target = 1.14109.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════ GBPUSD ══════════════════════ -->
-<div class="page" id="page-gb">
-  <div class="ih">
-    <div class="iname">GBPUSD</div>
-    <div class="iprice">1.33250</div>
-    <div class="idesc">Forex · 4H/1H/5M · Mar–Jun 2026</div>
-    <span class="pill pill-bear">BEARISH SWING</span>
-    <span class="pill pill-bear">BEARISH DT</span>
-  </div>
-  <div class="g2">
-    <div class="card">
-      <div class="ct">Structure & Key Levels</div>
-      <div class="zr"><span class="zl">Weekly ATH / BSL</span><span class="zp">1.36578</span><span class="zt zt-liq">Apr27 — max BSL</span></div>
-      <div class="zr"><span class="zl">BSL LH #1</span><span class="zp">1.36536</span><span class="zt zt-liq">May11</span></div>
-      <div class="zr"><span class="zl">BSL LH #2</span><span class="zp">1.35091</span><span class="zt zt-liq">May25</span></div>
-      <div class="zr"><span class="zl">Sweep Jun5</span><span class="zp">1.34832</span><span class="zt zt-liq">BSL swept</span></div>
-      <div class="zr"><span class="zl">Weekly BOS Bearish</span><span class="zp">Sub 1.33026</span><span class="zt zt-bear">Confirmed May17</span></div>
-      <div class="zr"><span class="zl">1H Bear FVG Major</span><span class="zp">1.34042–1.34664</span><span class="zt zt-fvg">Jun5 — 62 pips</span></div>
-      <div class="zr"><span class="zl">1H Bear FVG #3</span><span class="zp">1.33594–1.33798</span><span class="zt zt-fvg">Optimal entry</span></div>
-      <div class="zr"><span class="zl">Immediate SSL</span><span class="zp">1.33242</span><span class="zt zt-bear">T1</span></div>
-      <div class="zr"><span class="zl">BOS Level SSL</span><span class="zp">1.33026</span><span class="zt zt-bear">T2</span></div>
-      <div class="zr"><span class="zl">Absolute SSL</span><span class="zp">1.31596</span><span class="zt zt-bear">Final swing target</span></div>
-      <div class="narr narr-bear" style="margin-top:10px">Identical to EURUSD — BSL sweep → 150+ pip sell-off → weekly bearish BOS. Stacked bearish FVGs overhead. Draw = 1.31596. USD bullish macro coordination confirmed.</div>
-    </div>
-    <div class="card">
-      <div class="ct">Weekly Swing — Fibonacci (1.31596–1.36578)</div>
-      <div class="fr"><span class="fp">0%</span><span class="fpr">1.36578</span><span class="fn">ATH — max BSL</span></div>
-      <div class="fr"><span class="fp">23.6%</span><span class="fpr">1.35402</span><span class="fn">Weekly LH zone</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">1.34675</span><span class="fn">OB + LH — A+ swing setup</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">1.34087</span><span class="fn">Weekly Equilibrium</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">1.33499</span><span class="fn">SHORT swing OTE</span></div>
-      <div class="fr fc"><span class="fp">~68%</span><span class="fpr">1.33250 ←</span><span class="fn" style="color:var(--gold)">Price NOW</span></div>
-      <div class="fr"><span class="fp">78.6%</span><span class="fpr">1.32662</span><span class="fn">T3 swing</span></div>
-      <div class="fr"><span class="fp">100%</span><span class="fpr">1.31596</span><span class="fn" style="color:var(--bear)">Absolute SSL — final target</span></div>
-    </div>
-  </div>
-  <div class="g2">
-    <div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A+</span><span class="gb">Day Trade</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.33594–1.33880</span><span class="zt zt-fvg">1H Bear FVG cluster</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">1.33950 / 1.33242 / 1.33026 / 1.31596</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.5:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">6.0:1</div></div>
-        </div>
-        <div class="narr narr-bear">Retrace to 1H FVG cluster → 5M bearish CHoCH or OB rejection → SHORT. Primary intraday setup.</div>
-      </div>
-      <div class="sc sc-b">
-        <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Swing Counter</span><span class="pl">Low</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 1.31596</span><span class="zt zt-warn">SSL absolute swept first</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.31400–1.31700</span><span class="zt zt-bull">Post-sweep demand</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">1.31050 / 1.33242 / 1.34042</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">~4.5:1</div></div>
-          <div class="rb"><div class="rl">Probability</div><div class="rv">Medium</div></div>
-        </div>
-        <div class="narr narr-warn">Counter-trend only after confirmed SSL sweep + 5M bullish CHoCH. Reduced size.</div>
-      </div>
-    </div>
-    <div>
-      <div class="sc sc-swing-s">
-        <div class="sh"><span class="dt dt-swing-s">SHORT A</span><span class="gb">Swing OTE</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.33499–1.33880</span><span class="zt zt-fib">Fib 61.8% OTE + FVG</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">1.34120 / 1.33026 / 1.32662 / 1.31596</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">1.5:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">6.0:1</div></div>
-        </div>
-      </div>
-      <div class="sc sc-swing-s">
-        <div class="sh"><span class="dt dt-swing-s">SHORT A+</span><span class="gb">Swing Deep</span><span class="ph">High if triggered</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">1.34042–1.34675</span><span class="zt zt-ob">Daily OB + Fib 38.2%</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">1.34850 / 1.33242 / 1.32662 / 1.31596</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">5.4:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">8.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">12.9:1</div></div>
-        </div>
-        <div class="narr narr-bear">Best R:R of all setups. Requires deeper retrace (~100 pips from current). Needs larger retrace confirmation first.</div>
-      </div>
-      <div class="narr narr-warn"><b>Confidence: 80%</b> · 100% correlated with EURUSD · USD bullish = GBP bearish · Final target 1.31596.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════ USDJPY ══════════════════════ -->
-<div class="page" id="page-uj">
-  <div class="ih">
-    <div class="iname">USDJPY</div>
-    <div class="iprice">160.233</div>
-    <div class="idesc">Forex · 4H/1H/5M · Mar–Jun 2026 · BULLISH — inverse logic vs EUR/GBP</div>
-    <span class="pill pill-bull">BULLISH SWING</span>
-    <span class="pill pill-bull">BULLISH DT</span>
-  </div>
-  <div class="narr narr-info gf" style="margin-bottom:12px"><b>⚠ ATTENTION:</b> USDJPY is OPPOSITE to EUR/GBP. Inverted SMC logic: BSL = targets above, SSL = demand/stops. Trade = LONG on retrace. Do NOT buy at current price 160.233 — extended premium near ATH.</div>
-  <div class="g2">
-    <div class="card">
-      <div class="ct">Structure & Key Levels</div>
-      <div class="zr"><span class="zl">ATH / Absolute BSL</span><span class="zp">160.726</span><span class="zt zt-bull">T3 final target</span></div>
-      <div class="zr"><span class="zl">Major BSL</span><span class="zp">160.464</span><span class="zt zt-bull">Mar29 High — T2</span></div>
-      <div class="zr"><span class="zl">BSL T1</span><span class="zp">160.342</span><span class="zt zt-bull">Jun5 High</span></div>
-      <div class="zr"><span class="zl">4H Bullish BOS</span><span class="zp">Above 159.862</span><span class="zt zt-bull">Confirmed</span></div>
-      <div class="zr"><span class="zl">4H Bull OB</span><span class="zp">159.590–159.909</span><span class="zt zt-ob">Jun4 demand</span></div>
-      <div class="zr"><span class="zl">4H Bull FVG #1</span><span class="zp">159.904–159.978</span><span class="zt zt-fvg">Jun5</span></div>
-      <div class="zr"><span class="zl">4H Bull FVG #2</span><span class="zp">160.050–160.127</span><span class="zt zt-fvg">Jun5</span></div>
-      <div class="zr"><span class="zl">Demand / SSL</span><span class="zp">159.368</span><span class="zt zt-warn">Jun3 Low</span></div>
-      <div class="zr"><span class="zl">Weekly Demand Zone</span><span class="zp">155.032–156.936</span><span class="zt zt-bull">V-recovery origin</span></div>
-      <div class="narr narr-bull" style="margin-top:10px">Complete V-recovery from 155.032 (May6). Bullish BOS confirmed. Price near ATH 160.726. Draw = BSL pools above. Do not enter in premium — wait for retrace.</div>
-    </div>
-    <div class="card">
-      <div class="ct">Fibonacci Retracement (155.032–160.726)</div>
-      <div class="fr"><span class="fp">0% (ATH)</span><span class="fpr">160.726</span><span class="fn">Max BSL — final target</span></div>
-      <div class="fr fc"><span class="fp">~7%</span><span class="fpr">160.233 ←</span><span class="fn" style="color:var(--gold)">Price NOW — extended premium</span></div>
-      <div class="fr"><span class="fp">23.6%</span><span class="fpr">159.382</span><span class="fn">Intermediate HH</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">158.551</span><span class="fn">May consolidation zone</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">157.879</span><span class="fn">Swing equilibrium</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">157.207</span><span class="fn">Optimal re-accumulation zone</span></div>
-      <div class="fr"><span class="fp">100%</span><span class="fpr">155.032</span><span class="fn" style="color:var(--bear)">Absolute SSL — long invalidation</span></div>
+      <div class="ct">Fibonacci (1.14109–1.18493)</div>
+      <div class="zr"><span class="zl">38.2%</span><span class="zp">1.16818</span><span class="zt zt-fib">Swing short A+</span></div>
+      <div class="zr"><span class="zl">61.8% OTE</span><span class="zp">1.15784</span><span class="zt zt-fib">Short OTE — partial</span></div>
+      <div class="zr"><span class="zl">70.5%</span><span class="zp">1.15402</span><span class="zt zt-fib">Deep OTE</span></div>
+      <div class="zr"><span class="zl">Current price</span><span class="zp">1.15354</span><span class="zt zt-fib">~74% retrace</span></div>
+      <div class="zr"><span class="zl">100% SSL</span><span class="zp">1.14109</span><span class="zt zt-bear">Final target</span></div>
     </div>
   </div>
   <div class="g3">
-    <div class="sc sc-long">
-      <div class="sh"><span class="dt dt-long">LONG A</span><span class="gb">Day Trade</span><span class="ph">High</span></div>
-      <div class="zr"><span class="zl">Condition</span><span class="zp">Retrace to OB</span><span class="zt zt-warn">Do NOT buy at 160.233</span></div>
-      <div class="zr"><span class="zl">Entry</span><span class="zp">159.590–159.909</span><span class="zt zt-ob">4H Bull OB</span></div>
-      <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">159.360 / 160.342 / 160.464 / 160.726</span></div>
-      <div class="rg">
-        <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.7:1</div></div>
-        <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.3:1</div></div>
-        <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">4.4:1</div></div>
-      </div>
-      <div class="narr narr-bull">Wait for retrace to OB. Confirm 5M bullish CHoCH. Primary intraday setup.</div>
+    <div class="sc sc-new">
+      <div class="sh"><span class="dt-short">SHORT DT</span><span class="gb">FVG rebuilt</span><span class="badge-new">NEW Jun8</span></div>
+      <div class="zr"><span class="zl">Entry</span><span class="zp">1.15332–1.15495</span><span class="zt zt-fvg">FVG #4 post-low</span></div>
+      <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">1.15600 / 1.14998 / 1.14800</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.3:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.9:1</div></div><div class="rb"><div class="rl">Confirm</div><div class="rv">5M CHoCH</div></div></div>
     </div>
-    <div class="sc sc-swing-l">
-      <div class="sh"><span class="dt dt-swing-l">LONG A+</span><span class="gb">Swing</span><span class="ph">High</span></div>
-      <div class="zr"><span class="zl">Entry</span><span class="zp">159.000–159.500</span><span class="zt zt-fib">Fib 23.6%–38.2%</span></div>
-      <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">158.500 / 160.342 / 160.726 / 161.500</span></div>
-      <div class="rg">
-        <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.7:1</div></div>
-        <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.6:1</div></div>
-        <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">9.3:1</div></div>
-      </div>
-      <div class="narr narr-bull">Deeper retrace = better R:R. Fib OTE zone. Confirmation via 1H bullish CHoCH.</div>
+    <div class="sc sc-swing-s">
+      <div class="sh"><span class="dt-swing-s">SHORT OTE</span><span class="gb">Partial valid</span><span class="badge-part">PARTIAL</span></div>
+      <div class="zr"><span class="zl">Entry</span><span class="zp">1.15784–1.16085</span><span class="zt zt-fib">Fib 61.8% OTE</span></div>
+      <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">1.16300 / 1.14998 / 1.14431 / 1.14109</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~2.5:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">~4.5:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">1–2 wks</div></div></div>
     </div>
-    <div class="sc sc-b">
-      <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Break &amp; Retest</span><span class="pm">Medium</span></div>
-      <div class="zr"><span class="zl">Condition</span><span class="zp">4H close above 160.342</span><span class="zt zt-bull">Break confirmed first</span></div>
-      <div class="zr"><span class="zl">Entry</span><span class="zp">160.200–160.342</span><span class="zt zt-bull">BOS retest as support</span></div>
-      <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">160.050 / 160.464 / 160.726</span></div>
-      <div class="rg">
-        <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">1.4:1</div></div>
-        <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.2:1</div></div>
-        <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">160.050</div></div>
-      </div>
-      <div class="narr narr-warn">Classic BOS retest — cleanest entry bullish after confirmed break. Small SL, good R:R to ATH.</div>
+    <div class="sc sc-swing-s">
+      <div class="sh"><span class="dt-swing-s">SHORT A+ SWING</span><span class="gb">Active</span><span class="ph">High</span></div>
+      <div class="zr"><span class="zl">Entry</span><span class="zp">1.16478–1.16858</span><span class="zt zt-ob">Daily OB + Fib38.2%</span></div>
+      <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">1.17050 / 1.14998 / 1.14431 / 1.14109</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.5:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">5.5:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">1–3 wks</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ XAUUSD ══════════════════════ -->
-<div class="page" id="page-xa">
+<!-- ══════ GBPUSD ══════ -->
+<div class="page" id="page-gb">
   <div class="ih">
-    <div class="iname">XAUUSD <span style="font-size:14px;color:var(--gold)">Gold</span></div>
-    <div class="iprice">4328.82$</div>
-    <div class="idesc">Commodity · 4H/1H/5M · Mar–Jun 2026</div>
-    <span class="pill pill-bear">BEARISH SWING</span>
-    <span class="pill pill-bear">BEARISH DT</span>
+    <div class="iname">GBPUSD</div><div class="iprice">1.33390 ↓</div>
+    <div class="idesc">Forex · Mon 08.06 · MORE bearish than EURUSD (Mon close red)</div>
+    <span class="pill pill-bear">BEARISH SWING</span><span class="pill pill-bear">BEARISH DT</span>
   </div>
+  <div class="narr narr-bear" style="margin-bottom:12px"><b>Setup verification:</b> SHORT A+ DT, SHORT A micro, SHORT A+ Swing all <b>MITIGATED Jun5</b> — price traversed all three during the sell-off. LONG B Counter touched Jun8 (low 1.33060 = T1). Only SHORT A OTE and rebuilt FVG #3 remain valid short setups.</div>
   <div class="g2">
     <div class="card">
-      <div class="ct">Structure & Key Levels</div>
-      <div class="zr"><span class="zl">ATH / BSL</span><span class="zp">4890.78$</span><span class="zt zt-liq">Apr17</span></div>
-      <div class="zr"><span class="zl">Weekly LH #1</span><span class="zp">4773.57$</span><span class="zt zt-bear">May11</span></div>
-      <div class="zr"><span class="zl">Weekly LH #2</span><span class="zp">4595.32$</span><span class="zt zt-bear">May29</span></div>
-      <div class="zr"><span class="zl">Weekly BOS Bearish</span><span class="zp">Sub 4366.68$</span><span class="zt zt-bear">Jun5 confirmed</span></div>
-      <div class="zr"><span class="zl">4H Bear FVG Major</span><span class="zp">4379–4428$</span><span class="zt zt-fvg">49$ gap — unmitigated</span></div>
-      <div class="zr"><span class="zl">1H Bear FVG Major</span><span class="zp">4421–4458$</span><span class="zt zt-fvg">Optimal entry</span></div>
-      <div class="zr"><span class="zl">Immediate SSL</span><span class="zp">4311.85$</span><span class="zt zt-bear">Jun5 Low = Fib 100%</span></div>
-      <div class="zr"><span class="zl">Weekly Demand</span><span class="zp">4368–4417$</span><span class="zt zt-bull">Mar26 support</span></div>
-      <div class="narr narr-bear" style="margin-top:10px">Distribution from ATH 4890$ → bearish BOS below 4366. Price at Fib 100% — do not short from low. Wait for technical rebound to FVG 4379–4458. USD bullish = macro bearish pressure on gold.</div>
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">1H Bear FVG Major</span><span class="zp">1.34221–1.34664</span><span class="zt zt-fvg">Unmitigated supply</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG #3</span><span class="zp">1.33594–1.33798</span><span class="zt zt-fvg">Rebuilt entry</span></div>
+      <div class="zr"><span class="zl">1H Bull FVG Jun8</span><span class="zp">1.33276–1.33407</span><span class="zt zt-new">Demand zone</span></div>
+      <div class="zr"><span class="zl">SSL T1</span><span class="zp">1.33060</span><span class="zt zt-bear">Jun8 low ✓ reached</span></div>
+      <div class="zr"><span class="zl">SSL BOS T2 ⚡</span><span class="zp">1.33026</span><span class="zt zt-bear">Cluster with T1 — 34p gap</span></div>
+      <div class="zr"><span class="zl">T3 / T4</span><span class="zp">1.32662 / 1.31596</span><span class="zt zt-bear">Not reached</span></div>
     </div>
     <div class="card">
-      <div class="ct">Fibonacci Swing (4311–4890)</div>
-      <div class="fr"><span class="fp">0%</span><span class="fpr">4890.78$</span><span class="fn">ATH — supply</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">4669.63$</span><span class="fn">OB zone — major supply</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">4601.32$</span><span class="fn">Equilibrium</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">4533.00$</span><span class="fn">SHORT OTE</span></div>
-      <div class="fr"><span class="fp">70.5%</span><span class="fpr">4482.63$</span><span class="fn">Deep OTE</span></div>
-      <div class="fr"><span class="fp">78.6%</span><span class="fpr">4435.74$</span><span class="fn">Technical demand</span></div>
-      <div class="fr fc"><span class="fp">100%</span><span class="fpr">4328.82$ ←</span><span class="fn" style="color:var(--gold)">Price NOW at absolute Low!</span></div>
+      <div class="ct">Fibonacci (1.31596–1.36578)</div>
+      <div class="zr"><span class="zl">38.2%</span><span class="zp">1.34675</span><span class="zt zt-fib">Daily OB — swing short</span></div>
+      <div class="zr"><span class="zl">61.8% OTE</span><span class="zp">1.33499</span><span class="zt zt-fib">OTE SHORT</span></div>
+      <div class="zr"><span class="zl">70.5%</span><span class="zp">1.33066</span><span class="zt zt-fib">Near current low</span></div>
+      <div class="zr"><span class="zl">Current</span><span class="zp">1.33390</span><span class="zt zt-fib">~65% retrace</span></div>
+      <div class="zr"><span class="zl">78.6%</span><span class="zp">1.32662</span><span class="zt zt-bear">T3 target</span></div>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="sc sc-new">
+      <div class="sh"><span class="dt-short">SHORT A DT</span><span class="badge-new">NEW</span></div>
+      <div class="zr"><span class="zl">Entry</span><span class="zp">1.33594–1.33880</span><span class="zt zt-fvg">FVG #3 rebuilt</span></div>
+      <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">1.33950 / 1.33060 / 1.33026</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.7:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.1:1</div></div><div class="rb"><div class="rl">Confirm</div><div class="rv">5M CHoCH</div></div></div>
+    </div>
+    <div class="sc sc-swing-s">
+      <div class="sh"><span class="dt-swing-s">SHORT A OTE</span><span class="badge-part">PARTIAL</span></div>
+      <div class="zr"><span class="zl">Entry</span><span class="zp">1.33499–1.33880</span><span class="zt zt-fib">Fib 61.8% OTE</span></div>
+      <div class="zr"><span class="zl">SL / T1 / T2 / T3 / T4</span><span class="zp">1.34120 / 1.33060 / 1.33026 / 1.32662 / 1.31596</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.0:1</div></div><div class="rb"><div class="rl">R:R T4</div><div class="rv" style="color:var(--bull)">11.5:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">2–4 wks</div></div></div>
+    </div>
+    <div class="sc sc-b">
+      <div class="sh"><span class="dt-neu">LONG B Counter</span><span class="badge-part">PARTIAL T1 ✓</span></div>
+      <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 1.33026</span><span class="zt zt-warn">SSL cluster swept</span></div>
+      <div class="zr"><span class="zl">Entry / SL / T1 / T2</span><span class="zp">1.32900–1.33060 / 1.32750 / 1.33390 / 1.33698</span></div>
+      <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.2:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.0:1</div></div><div class="rb"><div class="rl">Risk</div><div class="rv" style="color:var(--neut)">Medium</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ USDJPY ══════ -->
+<div class="page" id="page-uj">
+  <div class="ih">
+    <div class="iname">USDJPY</div><div class="iprice">160.160</div>
+    <div class="idesc">Forex · Bullish — INVERSE logic. T1 160.342 ✓ Jun5. T2 160.394 ✓ Jun8.</div>
+    <span class="pill pill-bull">BULLISH SWING</span><span class="pill pill-bull">BULLISH DT</span>
+  </div>
+  <div class="narr narr-bull" style="margin-bottom:12px"><b>Setup verification:</b> LONG A DT (159.590–159.909) <b>MITIGATED Jun5</b> — T1 (160.342) reached same day. LONG B Break+Retest (160.266–160.342) <b>MITIGATED Jun5</b> — T1+T2 both reached. LONG A+ Swing (159.000–159.500) ACTIVE — never touched. New demand at 159.840 (Jun8 pullback low).</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">ATH / T4</span><span class="zp">160.726</span><span class="zt zt-bull">Final target</span></div>
+      <div class="zr"><span class="zl">T3</span><span class="zp">160.464</span><span class="zt zt-bull">Not reached</span></div>
+      <div class="zr"><span class="zl">T2 — new high</span><span class="zp">160.394</span><span class="zt zt-new">Jun8 ✓ reached</span></div>
+      <div class="zr"><span class="zl">T1</span><span class="zp">160.342</span><span class="zt zt-bull">Jun5 ✓ reached</span></div>
+      <div class="zr"><span class="zl">4H Bear FVG Jun8</span><span class="zp">160.088–160.266</span><span class="zt zt-fvg">New supply overhead</span></div>
+      <div class="zr"><span class="zl">New Demand Jun8</span><span class="zp">159.840–160.028</span><span class="zt zt-new">Mon low — entry zone</span></div>
+      <div class="zr"><span class="zl">4H Bull OB</span><span class="zp">159.590–159.909</span><span class="zt zt-bull">Deep demand</span></div>
+    </div>
+    <div class="card">
+      <div class="ct">Active Setups</div>
+      <div class="sc sc-new" style="margin-bottom:8px">
+        <div class="sh"><span class="dt-long">LONG A DT</span><span class="badge-new">NEW Jun8</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">159.840–160.028</span><span class="zt zt-new">Mon demand</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">159.720 / 160.342 / 160.394 / 160.464</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.0:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">4.4:1</div></div><div class="rb"><div class="rl">Confirm</div><div class="rv">5M CHoCH</div></div></div>
+      </div>
+      <div class="sc sc-swing-l">
+        <div class="sh"><span class="dt-swing-l">LONG A+ SWING</span><span class="ph">Active</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">159.000–159.500</span><span class="zt zt-fib">Fib 23.6%–38.2%</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">158.500 / 160.342 / 160.726 / 161.500</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.7:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.6:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">1–3 wks</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ XAUUSD ══════ -->
+<div class="page" id="page-xa">
+  <div class="ih">
+    <div class="iname">XAUUSD <span style="font-size:14px;color:var(--gold)">Gold</span></div><div class="iprice">4330.26$</div>
+    <div class="idesc">Commodity · Mon: new low 4268.91 → recovery → close 4330.26 (bullish doji)</div>
+    <span class="pill pill-bear">BEARISH SWING</span><span class="pill pill-bear">BEARISH DT</span>
+  </div>
+  <div class="narr narr-bear" style="margin-bottom:12px"><b>Setup verification:</b> SHORT A+ DT #1 (4379–4404) and SHORT A DT #2 (4421–4458) both <b>MITIGATED Jun5</b> — traversed during sell-off. SHORT A Swing OTE (4452–4506) only 27% entered — still valid supply. LONG B Counter (4220–4268) ACTIVE. T1 targets NOT reached (4268.91 is new low, below original 4311.85 T1).</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">Bear OB Jun5</span><span class="zp">4440–4475</span><span class="zt zt-ob">Supply</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG Major</span><span class="zp">4421–4458</span><span class="zt zt-fvg">Rebuilt entry #2</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG #2</span><span class="zp">4379–4404</span><span class="zt zt-fvg">Rebuilt entry #1</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG Jun8</span><span class="zp">4330.85–4339.94</span><span class="zt zt-new">Price just below</span></div>
+      <div class="zr"><span class="zl">1H Bull FVG Jun8</span><span class="zp">4305.69–4320.36</span><span class="zt zt-new">Demand below</span></div>
+      <div class="zr"><span class="zl">SSL T1 — new low</span><span class="zp">4268.91</span><span class="zt zt-bear">Jun8 not reached yet</span></div>
+    </div>
+    <div class="card">
+      <div class="ct">Fibonacci (4268.91–4890.78)</div>
+      <div class="zr"><span class="zl">0% (ATH)</span><span class="zp">4890.78</span><span class="zt zt-fib">Supply max</span></div>
+      <div class="zr"><span class="zl">61.8% OTE</span><span class="zp">4506.47</span><span class="zt zt-fib">Swing short OTE</span></div>
+      <div class="zr"><span class="zl">70.5%</span><span class="zp">4452.37</span><span class="zt zt-fib">Swing short deep</span></div>
+      <div class="zr"><span class="zl">Current</span><span class="zp">4330.26$</span><span class="zt zt-fib">~98% retrace</span></div>
+      <div class="zr"><span class="zl">100% (new low)</span><span class="zp">4268.91</span><span class="zt zt-bear">T1 SSL target</span></div>
     </div>
   </div>
   <div class="g2">
     <div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A+</span><span class="gb">Day Trade Entry #1</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">4379–4404$</span><span class="zt zt-fvg">1H Bear FVG Jun5</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">4475 / 4311 / 4250 / 4200</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.2:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.8:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">4475$</div></div>
-        </div>
-        <div class="narr narr-bear">Price at absolute low — do not short now. Wait for technical rebound to 4379–4404 → bearish CHoCH → SHORT.</div>
+      <div class="sc sc-new">
+        <div class="sh"><span class="dt-short">SHORT DT #1</span><span class="badge-new">Rebuilt</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">4379–4404</span><span class="zt zt-fvg">FVG #2 — unmitigated now</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">4475 / 4268.91 / 4200</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.5:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.2:1</div></div><div class="rb"><div class="rl">Confirm</div><div class="rv">5M CHoCH</div></div></div>
+        <div class="narr narr-bear">Wait for retrace to 4379–4404. Do NOT short from 4330 — too close to new low. Bears need a technical retrace first.</div>
       </div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A</span><span class="gb">Day Trade Entry #2</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry (optimal)</span><span class="zp">4421–4458$</span><span class="zt zt-fvg">1H Bear FVG Major</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">4475 / 4311 / 4250 / 4200</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">~4.0:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">4475$</div></div>
-        </div>
-        <div class="narr narr-bear">Deeper retrace into major FVG. Better probability than entry #1. Confirm 5M CHoCH bearish before entry.</div>
-      </div>
-      <div class="sc sc-b">
-        <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Counter-trend</span><span class="pm">Medium</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 4311.85$</span><span class="zt zt-warn">SSL swept first</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">4280–4311$</span><span class="zt zt-bull">Post-sweep demand</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">4250 / 4379 / 4435</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.2:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.1:1</div></div>
-          <div class="rb"><div class="rl">Probability</div><div class="rv">Medium</div></div>
-        </div>
-        <div class="narr narr-warn">Technical recovery trade only. NOT a bullish swing. Reduced size. Only after confirmed SSL sweep + 5M bullish CHoCH.</div>
+      <div class="sc sc-new">
+        <div class="sh"><span class="dt-short">SHORT DT #2</span><span class="badge-new">Rebuilt</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">4421–4458</span><span class="zt zt-fvg">FVG Major — unmitigated now</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">4475 / 4268.91 / 4200</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~3.0:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">~4.5:1</div></div></div>
       </div>
     </div>
     <div>
       <div class="sc sc-swing-s">
-        <div class="sh"><span class="dt dt-swing-s">SHORT A</span><span class="gb">Swing OTE</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">4482–4533$</span><span class="zt zt-fib">Fib 61.8%–70.5% + Daily FVG</span></div>
-        <div class="zr"><span class="zl">SL</span><span class="zp">4580$</span><span class="zt zt-warn">Above LH May25</span></div>
-        <div class="zr"><span class="zl">T1 / T2 / T3</span><span class="zp">4311 / 4200 / 4100</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">4.2:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.3:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">7.8:1</div></div>
-        </div>
-        <div class="narr narr-bear">Daily FVG 4517–4528 confluent in zone. Needs retrace of ~150–200$ from current. Hold 1–3 weeks.</div>
+        <div class="sh"><span class="dt-swing-s">SHORT Swing OTE</span><span class="badge-part">PARTIAL 27%</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">4452–4506</span><span class="zt zt-fib">Fib 61.8%–70.5%</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">4580 / 4268.91 / 4200 / 4100</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">4.2:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">7.8:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">1–3 wks</div></div></div>
       </div>
-      <div class="card">
-        <div class="ct">Gold Macro Context</div>
-        <div class="narr narr-info">USD bullish = macro bearish pressure on gold. Inverse correlation confirmed Jun 5 — identical pattern to EUR/GBP. Only exception: major geopolitical crisis or weak NFP data.</div>
-        <hr class="sep">
-        <div class="lg">
-          <div><div class="lct" style="color:var(--bull)">BSL (Supply zones)</div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>4890.78$</b> — ATH</div></div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>4541.65$</b> — LH Jun1</div></div>
-            <div class="li"><span class="ld ld-b"></span><div class="lt"><b>4458$</b> — FVG entry zone</div></div></div>
-          <div><div class="lct" style="color:var(--bear)">SSL (Targets)</div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>4311.85$</b> — T1</div></div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>4250$</b> — T2</div></div>
-            <div class="li"><span class="ld ld-s"></span><div class="lt"><b>4100$</b> — T4 absolute</div></div></div>
-        </div>
-        <div class="narr narr-warn" style="margin-top:10px"><b>Confidence: 77%</b> | Final swing target = $4100.</div>
+      <div class="sc sc-b">
+        <div class="sh"><span class="dt-neu">LONG B Counter</span><span class="ph">Active</span></div>
+        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 4268.91</span><span class="zt zt-warn">SSL swept first</span></div>
+        <div class="zr"><span class="zl">Entry / SL / T1 / T2</span><span class="zp">4220–4268 / 4180 / 4340 / 4400</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~2.5:1</div></div><div class="rb"><div class="rl">Risk</div><div class="rv" style="color:var(--neut)">Medium</div></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ GER40 ══════════════════════ -->
+<!-- ══════ GER40 ══════ -->
 <div class="page" id="page-ge">
   <div class="ih">
-    <div class="iname">GER40 <span style="font-size:14px;color:var(--text-dim)">DAX</span></div>
-    <div class="iprice">24573.4 pts</div>
-    <div class="idesc">Index · 4H/1H/5M · Mar–Jun 2026 · BULLISH swing / BEARISH correction</div>
-    <span class="pill pill-bull">BULLISH SWING</span>
-    <span class="pill pill-bear">BEARISH DT</span>
+    <div class="iname">GER40 <span style="font-size:14px;color:var(--dim)">DAX</span></div><div class="iprice">24574.2</div>
+    <div class="idesc">Index · Bullish swing / Bearish correction · Mon: new low 24331.9, close bullish</div>
+    <span class="pill pill-bull">BULLISH SWING</span><span class="pill pill-bear">BEARISH DT</span>
   </div>
-  <div class="narr narr-info gf" style="margin-bottom:12px"><b>DAX ≠ EUR/GBP:</b> Weekly BULLISH trend confirmed (21934→25446 = +3512pts). Current correction (-860pts) is normal — do not reverse the trend. SHORT = short term correction play. LONG = long term swing target ATH 25446.</div>
+  <div class="narr narr-warn" style="margin-bottom:12px"><b>Setup verification:</b> SHORT A proximal (24572–24680) <b>MITIGATED Jun5</b> — fully traversed. SHORT A optimal (24722–24895) PARTIAL 72% — top 24895 never reached, remains valid supply. LONG B DT (24200–24331) PARTIAL — T1 24331.9 reached Jun8. LONG A+ Swing and LONG A EQ both ACTIVE.</div>
   <div class="g2">
     <div class="card">
-      <div class="ct">Structure & Key Levels</div>
-      <div class="zr"><span class="zl">ATH / BSL</span><span class="zp">25446.7</span><span class="zt zt-bull">May25 — swing target</span></div>
-      <div class="zr"><span class="zl">BSL Jun2</span><span class="zp">25364.2</span><span class="zt zt-liq">Partially swept</span></div>
-      <div class="zr"><span class="zl">BSL HH May6</span><span class="zp">25158.2</span><span class="zt zt-liq">Intermediate target</span></div>
-      <div class="zr"><span class="zl">Bullish BOS</span><span class="zp">Above 24798</span><span class="zt zt-bull">Confirmed — swing valid</span></div>
-      <div class="zr"><span class="zl">Internal Bearish BOS</span><span class="zp">Sub 24650.3</span><span class="zt zt-bear">Correction confirmed</span></div>
-      <div class="zr"><span class="zl">4H Bear FVG Major</span><span class="zp">24722–24895</span><span class="zt zt-fvg">Jun5 — 173pts</span></div>
-      <div class="zr"><span class="zl">Bear OB Jun5</span><span class="zp">24807–24940</span><span class="zt zt-ob">Active supply</span></div>
-      <div class="zr"><span class="zl">4H Bull OB (demand)</span><span class="zp">24650–24755</span><span class="zt zt-bull">Jun3 potential support</span></div>
-      <div class="zr"><span class="zl">Immediate SSL</span><span class="zp">24504.4</span><span class="zt zt-bear">T1 short</span></div>
-      <div class="zr"><span class="zl">Weekly HL Demand</span><span class="zp">23630.7</span><span class="zt zt-bull">Final swing support</span></div>
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">Bear FVG Major</span><span class="zp">24722–24895</span><span class="zt zt-fvg">72% — valid supply</span></div>
+      <div class="zr"><span class="zl">Bear FVG Jun8</span><span class="zp">24434–24572</span><span class="zt zt-new">138pts — price at top</span></div>
+      <div class="zr"><span class="zl">Bull FVG Jun8 #1</span><span class="zp">24434–24486</span><span class="zt zt-new">Demand below</span></div>
+      <div class="zr"><span class="zl">SSL T1 — new low</span><span class="zp">24331.9</span><span class="zt zt-bear">Jun8 ✓ reached</span></div>
+      <div class="zr"><span class="zl">T2 — Fib 38.2%</span><span class="zp">24105.0</span><span class="zt zt-bear">Not reached</span></div>
+      <div class="zr"><span class="zl">Weekly HL support</span><span class="zp">23630.7</span><span class="zt zt-bull">Final swing demand</span></div>
     </div>
     <div class="card">
-      <div class="ct">Fibonacci Swing (21934–25446)</div>
-      <div class="fr"><span class="fp">0%</span><span class="fpr">25446.7</span><span class="fn">ATH — swing target</span></div>
-      <div class="fr fc"><span class="fp">~26%</span><span class="fpr">24573 ←</span><span class="fn" style="color:var(--gold)">Price NOW</span></div>
-      <div class="fr"><span class="fp">23.6%</span><span class="fpr">24617.8</span><span class="fn">Minimal retrace</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">24105.0</span><span class="fn" style="color:var(--bull)">Demand A+ — long swing</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">23690.6</span><span class="fn">Extended demand</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">23276.2</span><span class="fn">Long swing OTE</span></div>
-      <div class="fr"><span class="fp">100%</span><span class="fpr">21934.5</span><span class="fn" style="color:var(--bear)">Absolute SSL — invalidation</span></div>
+      <div class="ct">Fibonacci (21934–25446) — BULLISH</div>
+      <div class="zr"><span class="zl">0% (ATH)</span><span class="zp">25446.7</span><span class="zt zt-bull">T3 long swing</span></div>
+      <div class="zr"><span class="zl">23.6%</span><span class="zp">24617.8</span><span class="zt zt-fib">Price just below</span></div>
+      <div class="zr"><span class="zl">38.2% demand A+</span><span class="zp">24105.0</span><span class="zt zt-fib">Long swing entry</span></div>
+      <div class="zr"><span class="zl">50% EQ</span><span class="zp">23690.6</span><span class="zt zt-fib">Long swing EQ</span></div>
+      <div class="zr"><span class="zl">61.8% OTE</span><span class="zp">23276.2</span><span class="zt zt-fib">Deep long OTE</span></div>
     </div>
   </div>
-  <!-- All 5 GER40 setups -->
   <div class="g2">
     <div>
       <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A</span><span class="gb">Day Trade — Proximal</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">24607–24668</span><span class="zt zt-fvg">1H Bear FVG #3</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">25010 / 24504 / 24105 / 23690</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.8:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">4.7:1</div></div>
-        </div>
-        <div class="narr narr-bear">Nearest resistance — retrace into proximal FVG. Confirm 5M bearish CHoCH. Watch for Monday gap open.</div>
-      </div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A</span><span class="gb">Day Trade — Optimal</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">24722–24895</span><span class="zt zt-fvg">1H Bear FVG Major</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">25010 / 24504 / 24105 / 23690</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">4.7:1</div></div>
-        </div>
-        <div class="narr narr-bear">Deeper retrace into major FVG — better R:R. Bear OB Jun5 (24807–24940) confluent. Preferred short entry.</div>
+        <div class="sh"><span class="dt-short">SHORT A</span><span class="gb">Optimal</span><span class="badge-part">PARTIAL 72%</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">24722–24895</span><span class="zt zt-fvg">Bear FVG Major</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">25010 / 24331 / 24105 / 23690</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.2:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.8:1</div></div></div>
       </div>
       <div class="sc sc-b">
-        <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Day Trade — Sweep Reversal</span><span class="pm">Medium</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 24504.4</span><span class="zt zt-warn">SSL swept + 5M CHoCH bull</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">24400–24504</span><span class="zt zt-bull">Post-sweep demand</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">24300 / 24720 / 24895</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.0:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">24280</div></div>
-        </div>
-        <div class="narr narr-warn">Only after confirmed sweep of 24504 + bullish 5M CHoCH. Quick intraday recovery play toward 1H FVG bottoms.</div>
+        <div class="sh"><span class="dt-neu">LONG B DT</span><span class="badge-part">T1 reached</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">24200–24331</span><span class="zt zt-new">Sweep reversal zone</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">24100 / 24574 / 24895</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.2:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.5:1</div></div></div>
+        <div class="narr narr-warn">T1 24331.9 reached Jun8. Zone can still provide entries if price retests 24200–24331 — demand remains structural.</div>
       </div>
     </div>
     <div>
       <div class="sc sc-swing-l">
-        <div class="sh"><span class="dt dt-swing-l">LONG A+</span><span class="gb">Swing</span><span class="ph">High when triggered</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Retrace to 24105–24200</span><span class="zt zt-fib">Fib 38.2% + Daily OB</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">23950–24200</span><span class="zt zt-bull">Fib 38.2% + Bull FVG</span></div>
+        <div class="sh"><span class="dt-swing-l">LONG A+ SWING</span><span class="ph">Active</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">23950–24200</span><span class="zt zt-fib">Fib 38.2% + Bull FVG</span></div>
         <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">23600 / 24798 / 25158 / 25446</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.8:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.3:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">6.3:1</div></div>
-        </div>
-        <div class="narr narr-bull">Best swing setup. Weekly bullish trend — every correction is a buying opportunity. Confirm 1H bullish CHoCH at demand zone. Hold 2–4 weeks.</div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.8:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">6.3:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">2–4 wks</div></div></div>
       </div>
       <div class="sc sc-swing-l">
-        <div class="sh"><span class="dt dt-swing-l">LONG A</span><span class="gb">Swing EQ</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">23500–23690</span><span class="zt zt-fib">Fib 50% EQ + demand</span></div>
+        <div class="sh"><span class="dt-swing-l">LONG A EQ</span><span class="ph">Active</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">23500–23690</span><span class="zt zt-fib">Fib 50% + demand</span></div>
         <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">23300 / 24798 / 25446</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~4.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">~8.0:1</div></div>
-          <div class="rb"><div class="rl">Duration</div><div class="rv">3–6 wks.</div></div>
-        </div>
-        <div class="narr narr-bull">Deeper retrace into Fib 50% — excellent R:R. Confluent with Weekly HL area (23630). Confirm Daily bullish CHoCH before entry.</div>
-      </div>
-      <div class="card">
-        <div class="ct">Scores</div>
-        <div class="sg">
-          <div class="sb"><div class="sl">Swing Trend</div><div class="sv" style="color:var(--bull)">75%</div><div class="sbar"><div class="sf" style="width:75%;background:var(--bull)"></div></div><div class="ss">Bullish HH+HL weekly</div></div>
-          <div class="sb"><div class="sl">DT Correction</div><div class="sv" style="color:var(--bear)">72%</div><div class="sbar"><div class="sf" style="width:72%;background:var(--bear)"></div></div><div class="ss">Bearish internal BOS</div></div>
-          <div class="sb"><div class="sl">Phase</div><div class="sv" style="font-size:14px">Correction</div><div class="ss">Normal bullish retrace</div></div>
-          <div class="sb"><div class="sl">Best Long Entry</div><div class="sv" style="font-size:14px;color:var(--bull)">24105</div><div class="ss">Fib 38.2% demand A+</div></div>
-        </div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">~4.0:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">~8.0:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">3–6 wks</div></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ NAS100 ══════════════════════ -->
+<!-- ══════ NAS100 ══════ -->
 <div class="page" id="page-na">
   <div class="ih">
-    <div class="iname">NAS100 <span style="font-size:14px;color:var(--text-dim)">Nasdaq 100</span></div>
-    <div class="iprice">28858.3 pts</div>
-    <div class="idesc">Index · 4H/1H/5M · Mar–Jun 2026 · BULLISH swing / BEARISH violent correction</div>
-    <span class="pill pill-bull">BULLISH SWING</span>
-    <span class="pill pill-bear">BEARISH DT</span>
+    <div class="iname">NAS100 <span style="font-size:14px;color:var(--dim)">Nasdaq</span></div><div class="iprice">29390.1 ↑</div>
+    <div class="idesc">Index · Strongest Mon recovery +608pts · Weekly HL 28570 HELD</div>
+    <span class="pill pill-bull">BULLISH SWING</span><span class="pill pill-bear">BEARISH DT</span>
   </div>
-  <div class="narr narr-bear gf" style="margin-bottom:12px"><b>⚡ Jun 5: -1468pts sell-off in a single day.</b> Daily Bear FVG of 1170pts (28906–30076) — largest in the series. Price at Fib 23.6% (28874). Critical Weekly HL at 28570 — if broken, acceleration toward 27710 (Fib 38.2%).</div>
+  <div class="narr narr-info" style="margin-bottom:12px"><b>Setup verification:</b> SHORT proximal/optimal (29424–29697 / 29455–29988): both PARTIAL — price entered Jun5 but also hit T1↑ (29697) and T2↑ (29988) same session. Considered consumed for that move. Rebuilt as fresh supply zones from Jun8 Bear FVG. LONG B DT: T1↓ 28927 hit Jun5, zone acted as support — valid demand base. LONG A+ Swing ACTIVE.</div>
   <div class="g2">
     <div class="card">
-      <div class="ct">Structure & Key Levels</div>
-      <div class="zr"><span class="zl">ATH / BSL</span><span class="zp">30756.3</span><span class="zt zt-bull">Jun3 — swing target</span></div>
-      <div class="zr"><span class="zl">BSL HH May14</span><span class="zp">29675.0</span><span class="zt zt-liq">Intermediate target</span></div>
-      <div class="zr"><span class="zl">Bullish BOS</span><span class="zp">Above 29287.4</span><span class="zt zt-bull">May10 confirmed</span></div>
-      <div class="zr"><span class="zl">Internal Bearish BOS</span><span class="zp">Sub 30076.8</span><span class="zt zt-bear">Jun5 correction</span></div>
-      <div class="zr"><span class="zl">Bear FVG MASSIVE</span><span class="zp">28906–30076</span><span class="zt zt-fvg">1170pts! primary supply</span></div>
-      <div class="zr"><span class="zl">Bear FVG #2</span><span class="zp">29455–29988</span><span class="zt zt-fvg">533pts optimal entry</span></div>
-      <div class="zr"><span class="zl">Fib 23.6%</span><span class="zp">28874.8</span><span class="zt zt-fib">Price NOW here</span></div>
-      <div class="zr"><span class="zl">CRITICAL Weekly HL</span><span class="zp">28570.2</span><span class="zt zt-warn">If broken → 27710</span></div>
-      <div class="zr"><span class="zl">Immediate SSL</span><span class="zp">28734.9</span><span class="zt zt-bear">T1 short</span></div>
-      <div class="zr"><span class="zl">Fib 38.2% Demand</span><span class="zp">27710.7</span><span class="zt zt-bull">Long A+ swing</span></div>
+      <div class="ct">Key Levels</div>
+      <div class="zr"><span class="zl">Bear FVG MASIV</span><span class="zp">28906–30076</span><span class="zt zt-fvg">1170pts — primary supply</span></div>
+      <div class="zr"><span class="zl">Bear FVG 533pts</span><span class="zp">29455–29988</span><span class="zt zt-fvg">Optimal short zone</span></div>
+      <div class="zr"><span class="zl">1H Bear FVG Jun8</span><span class="zp">29424–29483</span><span class="zt zt-new">Fresh supply</span></div>
+      <div class="zr"><span class="zl">1H Bull FVG Jun8</span><span class="zp">29227–29320</span><span class="zt zt-new">92pts demand</span></div>
+      <div class="zr"><span class="zl">SSL T1 new low</span><span class="zp">28927.4</span><span class="zt zt-bear">Jun8 ✓ Mon low</span></div>
+      <div class="zr"><span class="zl">Weekly HL</span><span class="zp">28570.2</span><span class="zt zt-bull">HELD — structural</span></div>
     </div>
     <div class="card">
-      <div class="ct">Fibonacci Swing (22783–30756)</div>
-      <div class="fr"><span class="fp">0%</span><span class="fpr">30756.3</span><span class="fn">ATH — final target</span></div>
-      <div class="fr fc"><span class="fp">23.6%</span><span class="fpr">28874 ←</span><span class="fn" style="color:var(--gold)">Price NOW at this level</span></div>
-      <div class="fr"><span class="fp">38.2%</span><span class="fpr">27710.7</span><span class="fn" style="color:var(--bull)">Demand A+ Long swing</span></div>
-      <div class="fr"><span class="fp">50% EQ</span><span class="fpr">26769.9</span><span class="fn">Extended demand</span></div>
-      <div class="fr"><span class="fp">61.8% OTE</span><span class="fpr">25829.1</span><span class="fn">Deep long OTE</span></div>
-      <div class="fr"><span class="fp">100%</span><span class="fpr">22783.5</span><span class="fn" style="color:var(--bear)">Absolute SSL — invalidation</span></div>
+      <div class="ct">Fibonacci (22783–30756) — BULLISH</div>
+      <div class="zr"><span class="zl">0% (ATH)</span><span class="zp">30756.3</span><span class="zt zt-bull">T3 long swing</span></div>
+      <div class="zr"><span class="zl">23.6%</span><span class="zp">28874.8</span><span class="zt zt-fib">Mon low was near (28927)</span></div>
+      <div class="zr"><span class="zl">Current</span><span class="zp">29390.1</span><span class="zt zt-fib">Back above Fib 23.6%</span></div>
+      <div class="zr"><span class="zl">38.2% demand A+</span><span class="zp">27710.7</span><span class="zt zt-fib">Long swing entry</span></div>
+      <div class="zr"><span class="zl">50% EQ</span><span class="zp">26769.9</span><span class="zt zt-fib">Extended demand</span></div>
     </div>
   </div>
-  <!-- All 4 NAS100 setups -->
   <div class="g2">
     <div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A</span><span class="gb">Day Trade — Proximal</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">28994–29163</span><span class="zt zt-fvg">1H Bear FVG #4</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">30100 / 28734 / 28570 / 27710</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">3.7:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">30100</div></div>
-        </div>
-        <div class="narr narr-bear">Bullish weekend gap (+123pts open). If price fails to break 29163 with 1H confirmation → SHORT. Nearest FVG resistance.</div>
+      <div class="sc sc-new">
+        <div class="sh"><span class="dt-short">SHORT</span><span class="badge-new">NEW from FVG Jun8</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">29424–29697</span><span class="zt zt-new">Bear FVG Jun8 + Mon high</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">30100 / 28927 / 28570</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.0:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.0:1</div></div><div class="rb"><div class="rl">Confirm</div><div class="rv">5M CHoCH</div></div></div>
+        <div class="narr narr-bear">Price at 29390 — approaching bottom of entry zone. Tuesday rejection from 29424–29483 (Bear FVG Jun8) = SHORT valid.</div>
       </div>
-      <div class="sc sc-short">
-        <div class="sh"><span class="dt dt-short">SHORT A</span><span class="gb">Day Trade — Optimal</span><span class="ph">High</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">29455–29988</span><span class="zt zt-fvg">4H Bear FVG — 533pts</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">30100 / 28734 / 28570 / 27710</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">4.4:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">~9.0:1</div></div>
-        </div>
-        <div class="narr narr-bear">Inside massive 1170pt FVG — institutional supply. Preferred short entry. Confirm 5M bearish CHoCH or OB rejection.</div>
+      <div class="sc sc-swing-s">
+        <div class="sh"><span class="dt-swing-s">SHORT optim</span><span class="badge-part">PARTIAL — rebuilt</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">29455–29988</span><span class="zt zt-fvg">4H Bear FVG 533pts</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">30100 / 28927 / 28570 / 27710</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">4.0:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">~9.0:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">1–2 wks</div></div></div>
       </div>
     </div>
     <div>
+      <div class="sc sc-new">
+        <div class="sh"><span class="dt-long">LONG B DT</span><span class="badge-new">Demand formed</span></div>
+        <div class="zr"><span class="zl">Entry</span><span class="zp">28927–29100</span><span class="zt zt-new">New demand zone</span></div>
+        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">28750 / 29390 / 29697</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">2.5:1</div></div><div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.5:1</div></div></div>
+        <div class="narr narr-bull">Zone held Mon — price swept 28927 then recovered +700pts. Confirmed demand. On retrace here = LONG with 5M CHoCH confirmation.</div>
+      </div>
       <div class="sc sc-swing-l">
-        <div class="sh"><span class="dt dt-swing-l">LONG A+</span><span class="gb">Swing</span><span class="ph">High when triggered</span></div>
+        <div class="sh"><span class="dt-swing-l">LONG A+ SWING</span><span class="ph">Active</span></div>
         <div class="zr"><span class="zl">Entry</span><span class="zp">27500–27850</span><span class="zt zt-fib">Fib 38.2% + Bull FVG May5</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">27200 / 29287 / 29675 / 30756</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.0:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">4.6:1</div></div>
-          <div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">10.5:1</div></div>
-        </div>
-        <div class="narr narr-bull">Best swing setup. Weekly bullish trend confirmed — correction is a buying opportunity. Confirm 1H bullish CHoCH at demand zone. Hold 2–4 weeks.</div>
-      </div>
-      <div class="sc sc-b">
-        <div class="sh"><span class="dt dt-b">LONG B</span><span class="gb">Day Trade — Weekly HL Defense</span><span class="pm">Medium</span></div>
-        <div class="zr"><span class="zl">Condition</span><span class="zp">Sweep sub 28734 + CHoCH 1H</span><span class="zt zt-warn">Confirmed sweep first</span></div>
-        <div class="zr"><span class="zl">Entry</span><span class="zp">28570–28734</span><span class="zt zt-bull">Weekly HL defense zone</span></div>
-        <div class="zr"><span class="zl">SL / T1 / T2</span><span class="zp">28350 / 29163 / 29455</span></div>
-        <div class="rg">
-          <div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.4:1</div></div>
-          <div class="rb"><div class="rl">R:R T2</div><div class="rv" style="color:var(--bull)">5.5:1</div></div>
-          <div class="rb"><div class="rl">Invalidation</div><div class="rv" style="color:var(--bear)">28350</div></div>
-        </div>
-        <div class="narr narr-warn">Weekly HL at 28570 is structural. If broken in daily close — bullish swing structure in danger. Only enter after confirmed sweep + 1H bullish CHoCH.</div>
-      </div>
-      <div class="card">
-        <div class="ct">Scores</div>
-        <div class="sg">
-          <div class="sb"><div class="sl">Swing Trend</div><div class="sv" style="color:var(--bull)">73%</div><div class="sbar"><div class="sf" style="width:73%;background:var(--bull)"></div></div><div class="ss">Bullish HH+HL weekly</div></div>
-          <div class="sb"><div class="sl">DT Correction</div><div class="sv" style="color:var(--bear)">75%</div><div class="sbar"><div class="sf" style="width:75%;background:var(--bear)"></div></div><div class="ss">-1468pts violent sell-off</div></div>
-          <div class="sb"><div class="sl">Critical Level</div><div class="sv" style="font-size:14px;color:var(--neutral)">28570</div><div class="ss">Weekly HL — must hold</div></div>
-          <div class="sb"><div class="sl">Best Long Entry</div><div class="sv" style="font-size:14px;color:var(--bull)">27710</div><div class="ss">Fib 38.2% demand A+</div></div>
-        </div>
+        <div class="zr"><span class="zl">SL / T1 / T2 / T3</span><span class="zp">27200 / 29287 / 29697 / 30756</span></div>
+        <div class="rg"><div class="rb"><div class="rl">R:R T1</div><div class="rv" style="color:var(--bull)">3.5:1</div></div><div class="rb"><div class="rl">R:R T3</div><div class="rv" style="color:var(--bull)">10.5:1</div></div><div class="rb"><div class="rl">Duration</div><div class="rv">2–4 wks</div></div></div>
       </div>
     </div>
   </div>
 </div>
 
 </main>
-
 <script>
-function showPage(id, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
   btn.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
